@@ -64,8 +64,8 @@ namespace Inedo.BuildMasterExtensions.XUnit
             };
 
             this._ddlFrameworkVersion = new DropDownList();
-            this._ddlFrameworkVersion.Items.Add(new ListItem("2.0.50727", "2.0.50727"));
-            this._ddlFrameworkVersion.Items.Add(new ListItem("4.0.30319", "4.0.30319"));
+            this._ddlFrameworkVersion.Items.Add(new ListItem(FrameworkVersions.Net20, FrameworkVersions.Net20));
+            this._ddlFrameworkVersion.Items.Add(new ListItem(FrameworkVersions.Net40, FrameworkVersions.Net40));
             this._ddlFrameworkVersion.Items.Add(new ListItem("unspecified", ""));
             this._ddlFrameworkVersion.SelectedValue = "";
 

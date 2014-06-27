@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Xml;
 using Inedo.BuildMaster;
 using Inedo.BuildMaster.Extensibility.Actions;
@@ -99,9 +100,10 @@ namespace Inedo.BuildMasterExtensions.XUnit
                 LogInformation("XUnitExePath = '{0}'", xunitExePath);
                 LogInformation("TestResults Path = '{0}'", tmpFileName);
 
+                // For now we are using the nunit flag so we can use the same xml handling as the nunit extension
                 this.ExecuteCommandLine(
                     xunitExePath,
-                    string.Format("\"{0}\" /xml:\"{1}\" {2}", this.TestFile, tmpFileName, this.AdditionalArguments),
+                    string.Format("\"{0}\" /nunit:\"{1}\" {2}", this.TestFile, tmpFileName, this.AdditionalArguments),
                     this.Context.SourceDirectory
                 );
 
@@ -160,7 +162,22 @@ namespace Inedo.BuildMasterExtensions.XUnit
 
             var configurer = (XUnitConfigurer)this.GetExtensionConfigurer();
             if (string.IsNullOrWhiteSpace(configurer.XUnitConsoleExePath))
-                throw new InvalidOperationException("The path to XUnit was not specified in either the action or the selected XUnit extension's configuration.");
+            {
+                string exePath;
+                switch (FrameworkVersion)
+                {
+                    case FrameworkVersions.Net20:
+                        exePath = "xunit.console.exe";
+                        break;
+                    default:
+                        exePath = "xunit.console.clr4.exe";
+                        break;
+                }
+
+                var dirName = Path.GetDirectoryName(GetType().Assembly.Location) ?? ".";
+                exePath = Path.Combine(dirName, @"tools\xunit.runners\tools\", exePath);
+                return fileOps.GetWorkingDirectory(this.Context.ApplicationId, this.Context.DeployableId ?? 0, exePath);
+            }
 
             return fileOps.GetWorkingDirectory(this.Context.ApplicationId, this.Context.DeployableId ?? 0, configurer.XUnitConsoleExePath);
         }
