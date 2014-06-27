@@ -100,6 +100,11 @@ namespace Inedo.BuildMasterExtensions.XUnit
                 LogInformation("XUnitExePath = '{0}'", xunitExePath);
                 LogInformation("TestResults Path = '{0}'", tmpFileName);
 
+                if (File.Exists(xunitExePath))
+                {
+                    throw new FileNotFoundException("The xunit runner could not be.", xunitExePath);
+                }
+
                 // For now we are using the nunit flag so we can use the same xml handling as the nunit extension
                 this.ExecuteCommandLine(
                     xunitExePath,
@@ -107,6 +112,7 @@ namespace Inedo.BuildMasterExtensions.XUnit
                     this.Context.SourceDirectory
                 );
 
+                LogDebug("Reading test results...", xunitExePath);
                 using (var stream = new MemoryStream(fileOps.ReadFileBytes(tmpFileName), false))
                 {
                     doc.Load(stream);
