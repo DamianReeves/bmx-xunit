@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Globalization;
 using System.Web.UI.WebControls;
 using Inedo.BuildMaster.Data;
 using Inedo.BuildMaster.Extensibility.Actions;
@@ -7,7 +6,7 @@ using Inedo.BuildMaster.Web.Controls;
 using Inedo.BuildMaster.Web.Controls.Extensions;
 using Inedo.Web.Controls;
 
-namespace Inedo.BuildMasterExtensions.NUnit
+namespace Inedo.BuildMasterExtensions.XUnit
 {
     /// <summary>
     /// Custom editor for the XUnit action.

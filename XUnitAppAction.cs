@@ -8,7 +8,7 @@ using Inedo.BuildMaster.Extensibility.Actions.Testing;
 using Inedo.BuildMaster.Extensibility.Agents;
 using Inedo.BuildMaster.Web;
 
-namespace Inedo.BuildMasterExtensions.NUnit
+namespace Inedo.BuildMasterExtensions.XUnit
 {
     /// <summary>
     /// Action that runs NUnit unit tests on a specified project, assembly, or NUnit file.

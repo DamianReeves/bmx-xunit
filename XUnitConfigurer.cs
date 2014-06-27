@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel;
 using Inedo.BuildMaster;
 using Inedo.BuildMaster.Extensibility.Configurers.Extension;
+using Inedo.BuildMasterExtensions.XUnit;
 
-[assembly: ExtensionConfigurer(typeof(Inedo.BuildMasterExtensions.NUnit.XUnitConfigurer))]
+[assembly: ExtensionConfigurer(typeof(XUnitConfigurer))]
 
-namespace Inedo.BuildMasterExtensions.NUnit
+namespace Inedo.BuildMasterExtensions.XUnit
 {
     public sealed class XUnitConfigurer : ExtensionConfigurerBase
     {
