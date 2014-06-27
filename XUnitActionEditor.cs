@@ -13,12 +13,12 @@ namespace Inedo.BuildMasterExtensions.XUnit
     /// </summary>
     internal sealed class XUnitActionEditor : ActionEditorBase
     {
-        private SourceControlFileFolderPicker txtExePath;
-        private ValidatingTextBox txtTestFile, txtGroupName;
-        private DropDownList ddlFrameworkVersion;
-        private ValidatingTextBox txtAdditionalArguments;
-        private ValidatingTextBox txtCustomXmlOutputPath;
-        private CheckBox chkTreatInconclusiveTestsAsFailure;
+        private SourceControlFileFolderPicker _txtExePath;
+        private ValidatingTextBox _txtTestFile, _txtGroupName;
+        private DropDownList _ddlFrameworkVersion;
+        private ValidatingTextBox _txtAdditionalArguments;
+        private ValidatingTextBox _txtCustomXmlOutputPath;
+        private CheckBox _chkTreatInconclusiveTestsAsFailure;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XUnitActionEditor"/> class.
@@ -43,46 +43,46 @@ namespace Inedo.BuildMasterExtensions.XUnit
                 .Execute()
                 .FirstOrDefault();
 
-            this.txtExePath = new SourceControlFileFolderPicker
+            this._txtExePath = new SourceControlFileFolderPicker
             {
                 DisplayMode = SourceControlBrowser.DisplayModes.FoldersAndFiles,
                 ServerId = this.ServerId,
                 DefaultText = "Default for Selected Configuration"
             };
 
-            this.txtGroupName = new ValidatingTextBox
+            this._txtGroupName = new ValidatingTextBox
             {
                 Text = deployable != null ? deployable.Deployable_Name : string.Empty,
                 Width= 300,
                 Required = true
             };
 
-            this.txtTestFile = new ValidatingTextBox
+            this._txtTestFile = new ValidatingTextBox
             {
                 Required = true,
                 Width = 300
             };
 
-            this.ddlFrameworkVersion = new DropDownList();
-            this.ddlFrameworkVersion.Items.Add(new ListItem("2.0.50727", "2.0.50727"));
-            this.ddlFrameworkVersion.Items.Add(new ListItem("4.0.30319", "4.0.30319"));
-            this.ddlFrameworkVersion.Items.Add(new ListItem("unspecified", ""));
-            this.ddlFrameworkVersion.SelectedValue = "";
+            this._ddlFrameworkVersion = new DropDownList();
+            this._ddlFrameworkVersion.Items.Add(new ListItem("2.0.50727", "2.0.50727"));
+            this._ddlFrameworkVersion.Items.Add(new ListItem("4.0.30319", "4.0.30319"));
+            this._ddlFrameworkVersion.Items.Add(new ListItem("unspecified", ""));
+            this._ddlFrameworkVersion.SelectedValue = "";
 
-            this.txtAdditionalArguments = new ValidatingTextBox
+            this._txtAdditionalArguments = new ValidatingTextBox
             {
                 Required = false,
                 Width = 300
             };
 
-            this.txtCustomXmlOutputPath = new ValidatingTextBox
+            this._txtCustomXmlOutputPath = new ValidatingTextBox
             {
                 Required = false,
                 Width = 300,
                 DefaultText = "Managed by BuildMaster"
             };
 
-            this.chkTreatInconclusiveTestsAsFailure = new CheckBox
+            this._chkTreatInconclusiveTestsAsFailure = new CheckBox
             {
                 Text = "Treat Inconclusive Tests as Failures",
                 Checked = true
@@ -90,75 +90,75 @@ namespace Inedo.BuildMasterExtensions.XUnit
 
             this.Controls.Add(
                 new FormFieldGroup(
-                    "Custom NUnit Executable Path", 
-                    "The path to (and including) nunit-console.exe if using a different version of NUnit than the one specified "
+                    "Custom xUnit Executable Path", 
+                    "The path to (and including) xunit-console.exe if using a different version of XUnit than the one specified "
                         +"in the NUnit extension configuration.", 
                     false, 
-                    new StandardFormField("NUnit Exe Path:", this.txtExePath)
+                    new StandardFormField("xUnit Exe Path:", this._txtExePath)
                 ),
                 new FormFieldGroup(
                     ".NET Framework Version",
                     "The version of .NET which will host the unit test runner.",
                     false,
-                    new StandardFormField(".NET Framework Version:", this.ddlFrameworkVersion)
+                    new StandardFormField(".NET Framework Version:", this._ddlFrameworkVersion)
                 ),
                 new FormFieldGroup(
                     "Test File", 
                     "The path relative to the source directory of the DLL, project file, or NUnit file to test against.", 
                     false, 
-                    new StandardFormField("Test File:", this.txtTestFile)
+                    new StandardFormField("Test File:", this._txtTestFile)
                 ),
                 new FormFieldGroup(
                     "Custom XML Output Path",
                     "The path relative to the source directory of the NUnit-generated XML output file.",
                     false,
-                    new StandardFormField("XML Output Path:", this.txtCustomXmlOutputPath)
+                    new StandardFormField("XML Output Path:", this._txtCustomXmlOutputPath)
                 ),
                 new FormFieldGroup(
                     "NUnit Options",
                     "Specify any additional options for NUnit here.",
                     false,
-                    new StandardFormField("", this.chkTreatInconclusiveTestsAsFailure)
+                    new StandardFormField("", this._chkTreatInconclusiveTestsAsFailure)
                 ),
                 new FormFieldGroup(
                     "Group Name", 
                     "The Group name allows you to easily identify the unit test.", 
                     false, 
-                    new StandardFormField("Group Name:", this.txtGroupName)
+                    new StandardFormField("Group Name:", this._txtGroupName)
                 ),
                 new FormFieldGroup(
                     "Additional Arguments",
                     "The additional arguments to pass to the NUnit executable.",
                     true,
-                    new StandardFormField("Additional Arguments:", this.txtAdditionalArguments)
+                    new StandardFormField("Additional Arguments:", this._txtAdditionalArguments)
                 )
             );
         }
 
         public override void BindToForm(ActionBase extension)
         {
-            var nunitAction = (XUnitAppAction)extension;
+            var xunitAction = (XUnitAppAction)extension;
 
-            this.txtExePath.Text = nunitAction.ExePath;
-            this.txtTestFile.Text = nunitAction.TestFile;
-            this.txtGroupName.Text = nunitAction.GroupName;
-            this.ddlFrameworkVersion.SelectedValue = nunitAction.FrameworkVersion ?? "";
-            this.txtAdditionalArguments.Text = nunitAction.AdditionalArguments;
-            this.txtCustomXmlOutputPath.Text = nunitAction.CustomXmlOutputPath;
-            this.chkTreatInconclusiveTestsAsFailure.Checked = nunitAction.TreatInconclusiveAsFailure;
+            this._txtExePath.Text = xunitAction.ExePath;
+            this._txtTestFile.Text = xunitAction.TestFile;
+            this._txtGroupName.Text = xunitAction.GroupName;
+            this._ddlFrameworkVersion.SelectedValue = xunitAction.FrameworkVersion ?? "";
+            this._txtAdditionalArguments.Text = xunitAction.AdditionalArguments;
+            this._txtCustomXmlOutputPath.Text = xunitAction.CustomXmlOutputPath;
+            this._chkTreatInconclusiveTestsAsFailure.Checked = xunitAction.TreatInconclusiveAsFailure;
         }
 
         public override ActionBase CreateFromForm()
         {
             return new XUnitAppAction
             {
-                ExePath = this.txtExePath.Text,
-                TestFile = this.txtTestFile.Text,
-                GroupName = this.txtGroupName.Text,
-                FrameworkVersion = this.ddlFrameworkVersion.SelectedValue,
-                AdditionalArguments = this.txtAdditionalArguments.Text,
-                CustomXmlOutputPath = this.txtCustomXmlOutputPath.Text,
-                TreatInconclusiveAsFailure = this.chkTreatInconclusiveTestsAsFailure.Checked
+                ExePath = this._txtExePath.Text,
+                TestFile = this._txtTestFile.Text,
+                GroupName = this._txtGroupName.Text,
+                FrameworkVersion = this._ddlFrameworkVersion.SelectedValue,
+                AdditionalArguments = this._txtAdditionalArguments.Text,
+                CustomXmlOutputPath = this._txtCustomXmlOutputPath.Text,
+                TreatInconclusiveAsFailure = this._chkTreatInconclusiveTestsAsFailure.Checked
             };
         }
     }

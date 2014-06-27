@@ -77,7 +77,7 @@ namespace Inedo.BuildMasterExtensions.XUnit
         /// </remarks>
         public override string ToString()
         {
-            return string.Format("Run NUnit Unit Tests on {0}{1}", this.TestFile, Util.ConcatNE(" with the additional arguments: ", this.AdditionalArguments));
+            return string.Format("Run xUnit Unit Tests on {0}{1}", this.TestFile, Util.ConcatNE(" with the additional arguments: ", this.AdditionalArguments));
         }
 
         /// <summary>
@@ -93,11 +93,11 @@ namespace Inedo.BuildMasterExtensions.XUnit
             {
                 var fileOps = agent.GetService<IFileOperationsExecuter>();
 
-                string nunitExePath = this.GetNUnitExePath(fileOps);
+                string xunitExePath = this.GetXUnitExePath(fileOps);
                 string tmpFileName = this.GetXmlOutputPath(fileOps);
 
                 this.ExecuteCommandLine(
-                    nunitExePath,
+                    xunitExePath,
                     string.Format("\"{0}\" /xml:\"{1}\" {2}", this.TestFile, tmpFileName, this.AdditionalArguments),
                     this.Context.SourceDirectory
                 );
@@ -119,7 +119,7 @@ namespace Inedo.BuildMasterExtensions.XUnit
                 // skip tests that weren't actually run
                 if (string.Equals(node.Attributes["executed"].Value, "false", StringComparison.OrdinalIgnoreCase))
                 {
-                    LogInformation(String.Format("NUnit Test: {0} (skipped)", testName));
+                    LogInformation(String.Format("XUnit Test: {0} (skipped)", testName));
                     continue;
                 }
 
@@ -133,7 +133,7 @@ namespace Inedo.BuildMasterExtensions.XUnit
                     this.LogWarning("Error parsing " + node.Attributes["time"].Value + " as a number.");
                 };
 
-                this.LogInformation(string.Format("NUnit Test: {0}, Result: {1}, Test Length: {2} secs",
+                this.LogInformation(string.Format("XUnit Test: {0}, Result: {1}, Test Length: {2} secs",
                     testName,
                     nodeResult,
                     testLength));
@@ -150,14 +150,14 @@ namespace Inedo.BuildMasterExtensions.XUnit
             }
         }
 
-        private string GetNUnitExePath(IFileOperationsExecuter fileOps)
+        private string GetXUnitExePath(IFileOperationsExecuter fileOps)
         {
             if (!string.IsNullOrWhiteSpace(this.ExePath))
                 return fileOps.GetWorkingDirectory(this.Context.ApplicationId, this.Context.DeployableId ?? 0, this.ExePath);
 
             var configurer = (XUnitConfigurer)this.GetExtensionConfigurer();
             if (string.IsNullOrWhiteSpace(configurer.NUnitConsoleExePath))
-                throw new InvalidOperationException("The path to NUnit was not specified in either the action or the selected NUnit extension's configuration.");
+                throw new InvalidOperationException("The path to XUnit was not specified in either the action or the selected XUnit extension's configuration.");
 
             return fileOps.GetWorkingDirectory(this.Context.ApplicationId, this.Context.DeployableId ?? 0, configurer.NUnitConsoleExePath);
         }
