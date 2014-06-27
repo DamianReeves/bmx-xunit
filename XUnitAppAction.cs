@@ -100,9 +100,9 @@ namespace Inedo.BuildMasterExtensions.XUnit
                 LogInformation("XUnitExePath = '{0}'", xunitExePath);
                 LogInformation("TestResults Path = '{0}'", tmpFileName);
 
-                if (!File.Exists(xunitExePath))
+                if (!fileOps.FileExists(xunitExePath))
                 {
-                    throw new FileNotFoundException("The xunit runner could not be.", xunitExePath);
+                    throw new FileNotFoundException("The xunit runner could not be found.", xunitExePath);
                 }
 
                 if (Path.IsPathRooted(this.TestFile))
