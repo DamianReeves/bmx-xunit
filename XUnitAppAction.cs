@@ -100,9 +100,25 @@ namespace Inedo.BuildMasterExtensions.XUnit
                 LogInformation("XUnitExePath = '{0}'", xunitExePath);
                 LogInformation("TestResults Path = '{0}'", tmpFileName);
 
-                if (File.Exists(xunitExePath))
+                if (!File.Exists(xunitExePath))
                 {
                     throw new FileNotFoundException("The xunit runner could not be.", xunitExePath);
+                }
+
+                if (Path.IsPathRooted(this.TestFile))
+                {
+                    if (!File.Exists(this.TestFile))
+                    {
+                        LogDebug("TestFile path is invalid. The file specified at '{0}' does not exist.", this.TestFile);
+                    }
+                }
+                else
+                {
+                    var testFilePathResolved = fileOps.CombinePath(this.Context.SourceDirectory, TestFile);
+                    if (!fileOps.FileExists(testFilePathResolved))
+                    {
+                        LogDebug("TestFile path is invalid. The file specified at '{0}' does not exist in the SourceDirectory.", this.TestFile);
+                    }
                 }
 
                 // For now we are using the nunit flag so we can use the same xml handling as the nunit extension
@@ -167,7 +183,9 @@ namespace Inedo.BuildMasterExtensions.XUnit
                 return fileOps.GetWorkingDirectory(this.Context.ApplicationId, this.Context.DeployableId ?? 0, this.ExePath);
 
             var configurer = (XUnitConfigurer)this.GetExtensionConfigurer();
-            if (string.IsNullOrWhiteSpace(configurer.XUnitConsoleExePath))
+            if (string.IsNullOrWhiteSpace(configurer.XUnitConsoleExePath) 
+                || ".".Equals(configurer.XUnitConsoleExePath) 
+                || @".\".Equals(configurer.XUnitConsoleExePath))
             {
                 string exePath;
                 switch (FrameworkVersion)
