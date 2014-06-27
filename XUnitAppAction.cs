@@ -96,6 +96,9 @@ namespace Inedo.BuildMasterExtensions.XUnit
                 string xunitExePath = this.GetXUnitExePath(fileOps);
                 string tmpFileName = this.GetXmlOutputPath(fileOps);
 
+                LogInformation("XUnitExePath = '{0}'", xunitExePath);
+                LogInformation("TestResults Path = '{0}'", tmpFileName);
+
                 this.ExecuteCommandLine(
                     xunitExePath,
                     string.Format("\"{0}\" /xml:\"{1}\" {2}", this.TestFile, tmpFileName, this.AdditionalArguments),
@@ -156,10 +159,10 @@ namespace Inedo.BuildMasterExtensions.XUnit
                 return fileOps.GetWorkingDirectory(this.Context.ApplicationId, this.Context.DeployableId ?? 0, this.ExePath);
 
             var configurer = (XUnitConfigurer)this.GetExtensionConfigurer();
-            if (string.IsNullOrWhiteSpace(configurer.NUnitConsoleExePath))
+            if (string.IsNullOrWhiteSpace(configurer.XUnitConsoleExePath))
                 throw new InvalidOperationException("The path to XUnit was not specified in either the action or the selected XUnit extension's configuration.");
 
-            return fileOps.GetWorkingDirectory(this.Context.ApplicationId, this.Context.DeployableId ?? 0, configurer.NUnitConsoleExePath);
+            return fileOps.GetWorkingDirectory(this.Context.ApplicationId, this.Context.DeployableId ?? 0, configurer.XUnitConsoleExePath);
         }
 
         private string GetXmlOutputPath(IFileOperationsExecuter fileOps)

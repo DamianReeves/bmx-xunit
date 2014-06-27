@@ -17,12 +17,12 @@ namespace Inedo.BuildMasterExtensions.XUnit
         }
 
         /// <summary>
-        /// Gets or sets the path to nunit-console.exe.
+        /// Gets or sets the path to xunit-console.exe.
         /// </summary>
         [Persistent]
         [DisplayName("XUnit Console Executable Path")]
         [Description(@"The path to xunit-console.clr4.exe or xunit-console.exe.")]
-        public string NUnitConsoleExePath { get; set; }
+        public string XUnitConsoleExePath { get; set; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
