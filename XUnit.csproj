@@ -8,8 +8,8 @@
     <ProjectGuid>{34B976CF-D676-42F4-80DF-8515D45E1B62}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Inedo.BuildMasterExtensions.NUnit</RootNamespace>
-    <AssemblyName>NUnit</AssemblyName>
+    <RootNamespace>Inedo.BuildMasterExtensions.XUnit</RootNamespace>
+    <AssemblyName>XUnit</AssemblyName>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>

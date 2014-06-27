@@ -2,16 +2,16 @@
 using Inedo.BuildMaster;
 using Inedo.BuildMaster.Extensibility.Configurers.Extension;
 
-[assembly: ExtensionConfigurer(typeof(Inedo.BuildMasterExtensions.NUnit.NUnitConfigurer))]
+[assembly: ExtensionConfigurer(typeof(Inedo.BuildMasterExtensions.NUnit.XUnitConfigurer))]
 
 namespace Inedo.BuildMasterExtensions.NUnit
 {
-    public sealed class NUnitConfigurer : ExtensionConfigurerBase
+    public sealed class XUnitConfigurer : ExtensionConfigurerBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NUnitConfigurer"/> class.
+        /// Initializes a new instance of the <see cref="XUnitConfigurer"/> class.
         /// </summary>
-        public NUnitConfigurer()
+        public XUnitConfigurer()
         {
         }
 
@@ -19,9 +19,8 @@ namespace Inedo.BuildMasterExtensions.NUnit
         /// Gets or sets the path to nunit-console.exe.
         /// </summary>
         [Persistent]
-        [DisplayName("NUnit Console Executable Path")]
-        [Description(@"The path to nunit-console.exe, typically: <br /><br />"
-            + @"""C:\Program Files (x86)\NUnit 2.X.X\bin\nunit-console.exe")]
+        [DisplayName("XUnit Console Executable Path")]
+        [Description(@"The path to xunit-console.clr4.exe or xunit-console.exe.")]
         public string NUnitConsoleExePath { get; set; }
 
         /// <summary>

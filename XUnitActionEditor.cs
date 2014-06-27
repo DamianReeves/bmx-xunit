@@ -10,9 +10,9 @@ using Inedo.Web.Controls;
 namespace Inedo.BuildMasterExtensions.NUnit
 {
     /// <summary>
-    /// Custom editor for the NUnit action.
+    /// Custom editor for the XUnit action.
     /// </summary>
-    internal sealed class NUnitActionEditor : ActionEditorBase
+    internal sealed class XUnitActionEditor : ActionEditorBase
     {
         private SourceControlFileFolderPicker txtExePath;
         private ValidatingTextBox txtTestFile, txtGroupName;
@@ -22,9 +22,9 @@ namespace Inedo.BuildMasterExtensions.NUnit
         private CheckBox chkTreatInconclusiveTestsAsFailure;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NUnitActionEditor"/> class.
+        /// Initializes a new instance of the <see cref="XUnitActionEditor"/> class.
         /// </summary>
-        public NUnitActionEditor()
+        public XUnitActionEditor()
         {
         }
 
@@ -138,7 +138,7 @@ namespace Inedo.BuildMasterExtensions.NUnit
 
         public override void BindToForm(ActionBase extension)
         {
-            var nunitAction = (NUnitAppAction)extension;
+            var nunitAction = (XUnitAppAction)extension;
 
             this.txtExePath.Text = nunitAction.ExePath;
             this.txtTestFile.Text = nunitAction.TestFile;
@@ -151,7 +151,7 @@ namespace Inedo.BuildMasterExtensions.NUnit
 
         public override ActionBase CreateFromForm()
         {
-            return new NUnitAppAction
+            return new XUnitAppAction
             {
                 ExePath = this.txtExePath.Text,
                 TestFile = this.txtTestFile.Text,

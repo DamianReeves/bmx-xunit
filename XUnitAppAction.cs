@@ -17,14 +17,14 @@ namespace Inedo.BuildMasterExtensions.NUnit
         "Execute xUnit Tests",
         "Runs xUnit unit tests on a specified project, assembly, or xUnit file.")]
     [Tag(Tags.UnitTests)]
-    [CustomEditor(typeof(NUnitActionEditor))]
+    [CustomEditor(typeof(XUnitActionEditor))]
     [RequiresInterface(typeof(IFileOperationsExecuter))]
-    public sealed class NUnitAppAction : UnitTestActionBase
+    public sealed class XUnitAppAction : UnitTestActionBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NUnitAppAction"/> class.
+        /// Initializes a new instance of the <see cref="XUnitAppAction"/> class.
         /// </summary>
-        public NUnitAppAction()
+        public XUnitAppAction()
         {
             this.TreatInconclusiveAsFailure = true;
         }
@@ -155,7 +155,7 @@ namespace Inedo.BuildMasterExtensions.NUnit
             if (!string.IsNullOrWhiteSpace(this.ExePath))
                 return fileOps.GetWorkingDirectory(this.Context.ApplicationId, this.Context.DeployableId ?? 0, this.ExePath);
 
-            var configurer = (NUnitConfigurer)this.GetExtensionConfigurer();
+            var configurer = (XUnitConfigurer)this.GetExtensionConfigurer();
             if (string.IsNullOrWhiteSpace(configurer.NUnitConsoleExePath))
                 throw new InvalidOperationException("The path to NUnit was not specified in either the action or the selected NUnit extension's configuration.");
 
