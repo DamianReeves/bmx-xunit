@@ -124,7 +124,7 @@ namespace Inedo.BuildMasterExtensions.XUnit
                 // For now we are using the nunit flag so we can use the same xml handling as the nunit extension
                 this.ExecuteCommandLine(
                     xunitExePath,
-                    string.Format("\"{0}\" /nunit:\"{1}\" {2}", this.TestFile, tmpFileName, this.AdditionalArguments),
+                    string.Format("\"{0}\" /nunit \"{1}\" {2}", this.TestFile, tmpFileName, this.AdditionalArguments),
                     this.Context.SourceDirectory
                 );
 
