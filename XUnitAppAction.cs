@@ -102,7 +102,7 @@ namespace Inedo.BuildMasterExtensions.XUnit
 
                 if (!File.Exists(xunitExePath))
                 {
-                    throw new FileNotFoundException("The xunit runner could not be found.", xunitExePath);
+                    LogDebug("The xunit runner could not be found at '{0}'.", xunitExePath);
                 }
 
                 if (Path.IsPathRooted(this.TestFile))
