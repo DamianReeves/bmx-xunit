@@ -100,14 +100,14 @@ namespace Inedo.BuildMasterExtensions.XUnit
                 LogInformation("XUnitExePath = '{0}'", xunitExePath);
                 LogInformation("TestResults Path = '{0}'", tmpFileName);
 
-                if (!File.Exists(xunitExePath))
+                if (!fileOps.FileExists(xunitExePath))
                 {
                     LogDebug("The xunit runner could not be found at '{0}'.", xunitExePath);
                 }
 
                 if (Path.IsPathRooted(this.TestFile))
                 {
-                    if (!File.Exists(this.TestFile))
+                    if (!fileOps.FileExists(this.TestFile))
                     {
                         LogDebug("TestFile path is invalid. The file specified at '{0}' does not exist.", this.TestFile);
                     }
